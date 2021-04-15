@@ -11,7 +11,7 @@ import Login from './Components/Login/Login'
 
 function App() {
 
-  const user = "soomone";
+  const user = "null";
 
 
   return (
