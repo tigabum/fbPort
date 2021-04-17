@@ -23,6 +23,11 @@ display:flex;
 align-items:center;
 margin-left:5px;
 line-height:5px;
+padding-left:5px;
+background-color:#f2f2f2;
+
+border-radius:5px;
+width:250px;
 
 cursor:pointer;
 :hover{
@@ -32,6 +37,7 @@ cursor:pointer;
 h4{
     margin-left:5px;
     font-weight:400px;
+    
     
 }
 .MuiSvgIcon-root{
