@@ -1,28 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
+import db from '../../firebase';
 import MessageSender from '../MessageSender/MessageSender';
 import Post from '../Post/Post';
 import StoryReel from '../StoryReel/StoryReel';
 
 function Feeds() {
+    const[posts, setPosts] = useState([]);
+    useEffect(()=>{
+                db.collection("posts").orderBy('timestamp', 'desc').onSnapshot((snapshot)=>
+                    setPosts(snapshot.docs.map((doc)=>({post:doc.data()}))));
+}, []);
+         
+           
     return (
         <FeedsContainer>
             <StoryReel/>
             <MessageSender/>
-            <Post
-                profilePic="https://images.unsplash.com/photo-1579783483458-83d02161294e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                image="https://images.unsplash.com/photo-1505302548595-187075e7cdb1?ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODB8fHByb2ZpbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                username="username"
-                timestamp="here is timestamp"
-                message="Today's message"
-            />
-             <Post
-                profilePic="https://images.unsplash.com/photo-1466112928291-0903b80a9466?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                image="https://images.unsplash.com/photo-1527907440866-d9ccd3e05491?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OTd8fHByb2ZpbGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                username="usernametwo"
-                timestamp="here is second timestamp"
-                message="Second day's message"
-            />
+            {posts.map((item,index)=>(
+                
+                      <Post
+                      key={index+item.post.username}
+                      profilePic={item.post.profilePic}
+                      message={item.post.message}
+                     timestamp={item.post.timeestamp}
+                    image={item.post.image}
+                    username={item.post.username}
+                    
+                />
+
+             
+              
+
+            )
+                
+            )}
+           
             
             {/* StoryReel  */}
             {/* MessageSender */}

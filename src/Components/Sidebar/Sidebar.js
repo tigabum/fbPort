@@ -8,12 +8,15 @@ import ChatIcon from '@material-ui/icons/Chat';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import{ ExpandMoreOutlined} from '@material-ui/icons';
+import { useStateValue } from '../Reducer/StateProvider';
 function Sidebar() {
+    const [{user}, dispatch ] = useStateValue();
+
     return (
         <SidebarContainer>
            <SidebarItem
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVcxk0DAgRfd1aMkSWE17aW5u9XpqVtchk_Q&usqp=CAU"  name="some name"
-            title="Lewi Isamel"
+              src={user.photoURL}  name={user.displayName}
+            title={user.displayName}
            />
             <SidebarItem
                 Icon = {LocalHospitalIcon}

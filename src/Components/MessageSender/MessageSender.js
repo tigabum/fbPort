@@ -4,9 +4,13 @@ import styled from 'styled-components';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import { useStateValue } from '../Reducer/StateProvider';
+import db from '../../firebase';
+import firebase from 'firebase';
 
 
 function MessageSender() {
+    const[{user}, dispatch] = useStateValue();
 
     const [fellings, setFellings] = useState("");
     const [imageURL, setImageURL] = useState("");
@@ -15,6 +19,15 @@ function MessageSender() {
     const handleSubmit = (event)=>{
 
         event.preventDefault();
+            db.collection("posts").add({
+                message:fellings,
+                image:imageURL,
+                username:user.displayName,
+                profilePic:user.photoURL,
+                timestamp:firebase.firestore.FieldValue.serverTimestamp(),
+            })
+    
+
         setFellings("");
         setImageURL("");
        
@@ -26,12 +39,12 @@ function MessageSender() {
         <MessageSenderContainer>
                 {/* top issues */} 
                 <MessageSenderTop>
-                    <Avatar/>
+                    <Avatar src={user.photoURL} />
                     
                      <Form onSubmit={handleSubmit} >
                         <Input
                          value={fellings}
-                              placeholder={`What's on your mind?`}
+                              placeholder={`What's on your mind? ${user.displayName} `}
                               onChange={(e)=>setFellings(e.target.value) }
                         />
                         <InputImage

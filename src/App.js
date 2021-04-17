@@ -6,12 +6,13 @@ import Sidebar from './Components/Sidebar/Sidebar';
 import Feeds from './Components/Feeds/Feeds';
 import Widgets from './Components/Widgets/Widgets'
 import Login from './Components/Login/Login'
+import { useStateValue } from './Components/Reducer/StateProvider';
 
 
 
 function App() {
 
-  const user = "null";
+ const[{user}, dispatch] = useStateValue();
 
 
   return (

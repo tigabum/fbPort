@@ -1,13 +1,24 @@
 import React from 'react'
 import styled from 'styled-components';
-import {useState} from 'react';
+
+import {auth, provider} from '../../firebase';
+import { actionTypes } from '../Reducer/Reducer';
+import { useStateValue } from '../Reducer/StateProvider';
 
 function Login() {
-        const [open, setOpen] = useState(false);
-
+    const[state, dispatch] = useStateValue();
+        
         const signIn = () =>{
-                    setOpen(true);    
-                }
+            auth.signInWithPopup(provider)
+            .then((result)=> {
+                console.log(result.user);
+                    dispatch({
+                        type:actionTypes.SET_USER,
+                        user:result.user,
+                    })
+
+                console.log(result);
+            } ).catch( (error) => alert(error.message))};
 
     return (
         <LoginContainer>
@@ -30,6 +41,8 @@ function Login() {
                Sign in
 
            </Button>
+           <Create>Don't have an account? Create</Create>
+
         </LoginContainer>
     )
 }
@@ -73,3 +86,10 @@ padding:10px;
 }
 
 `
+const Create = styled.p`
+background-color:lightgray;
+padding:10px;
+border-radius:5px;
+color:#2e81f4;
+margin-top:-100px;
+` 

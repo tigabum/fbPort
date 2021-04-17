@@ -2,10 +2,13 @@ import React from 'react'
 import styled from 'styled-components';
 import {Avatar} from '@material-ui/core'
 
-function SidebarItem({ src, title, Icon} ) {
+
+
+function SidebarItem({ src,title, Icon} ) {
+    
     return (
         <ItemContainer>
-           {src && <Avatar src={src}/>}
+           {src && <Avatar src={src} />}
            {Icon && <Icon/>}
            <h4>{title} </h4>
         

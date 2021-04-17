@@ -11,8 +11,10 @@ import AddIcon from '@material-ui/icons/Add';
 import ForumIcon from '@material-ui/icons/Forum';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useStateValue } from '../Reducer/StateProvider';
 
 function Header() {
+    const[{user}, dispatch] = useStateValue();
     return (
         <Container>
             <FbLogo>
@@ -54,8 +56,8 @@ function Header() {
 
             <HeaderRight>
                 <AvaterIcon>
-                    <Avatar/>
-                        <h4>some text </h4>
+                    <Avatar src={user.photoURL} />
+                        <h4>{user.displayName} </h4>
                     
                      </AvaterIcon>
                    

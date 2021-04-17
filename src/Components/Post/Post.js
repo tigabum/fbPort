@@ -1,5 +1,5 @@
 import { Avatar } from '@material-ui/core'
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
@@ -7,15 +7,19 @@ import NearMeIcon from '@material-ui/icons/NearMe';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+
+
 function Post({username, profilePic, timestamp, message,image} ) {
+    const[like, setLike] =useState(null);
+  
     return (
         <PostContainer>
          
                  <TopContent>
-                     <Avatar src={profilePic} />
+                     <Avatar src= {profilePic}/>
                       <TopDivide>
                         <Heading>{username} </Heading>
-                         <Parag>{timestamp} </Parag>
+                         <Parag>{new Date(timestamp?.toDate()).toUTCString()} </Parag>
                       </TopDivide>
                          
                         
@@ -28,13 +32,14 @@ function Post({username, profilePic, timestamp, message,image} ) {
 
            
                 <BottomContent>
-                  <img src={image} alt=""/>
+                  <img src={image} alt="bottom"/>
 
                 </BottomContent>
+
                 <PostIcons>
                     <PostIcon>
-                        <ThumbUpIcon/>
-                        <Text>Like</Text>
+                        <ThumbUpIcon onClick={()=>setLike(like+1) } />
+                        <Text  >{like} Like </Text>
 
 
                     </PostIcon>
